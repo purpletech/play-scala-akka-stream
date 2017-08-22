@@ -6,3 +6,4 @@ target
 /.project
 /.settings
 /RUNNING_PID
+app/.DS_Store
