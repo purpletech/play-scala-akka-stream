@@ -12,16 +12,20 @@ trait KafkaSource {
   val system = ActorSystem("example")
   implicit val ec = system.dispatcher
   implicit val m = ActorMaterializer.create(system)
-  val consumerSettings = ConsumerSettings(system, new ByteArrayDeserializer, new StringDeserializer)
-    .withBootstrapServers("localhost:9092")
-    .withGroupId("group1")
-    .withProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest")
- 
-    val kafkaSource = Consumer.atMostOnceSource(consumerSettings, Subscriptions.topics("test"))
-                .map(x=> 
-                  {
-                    println("Received message: " + x.value())
-                    x.value()
-                   })
+
+  def kafkaSource = {
+    val groupId: String = System.currentTimeMillis().toString
+    println("Kafka consumer group id: " + groupId)
+    val consumerSettings = ConsumerSettings(system, new ByteArrayDeserializer, new StringDeserializer)
+      .withBootstrapServers("localhost:9092")
+      .withGroupId(groupId)
+      .withProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest")
+
+    Consumer.atMostOnceSource(consumerSettings, Subscriptions.topics("test"))
+      .map(x=>
+      {
+        println("Received message: " + x.value())
+        x.value()
+      })
+    }
   }
-  

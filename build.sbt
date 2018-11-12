@@ -1,5 +1,5 @@
-name := """my-play"""
-organization := "my-apps"
+name := """play-scala-akka-stream"""
+organization := "my-play-akka-apps"
 
 version := "1.0-SNAPSHOT"
 

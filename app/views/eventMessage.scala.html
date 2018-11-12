@@ -1,0 +1,18 @@
+@main("Kafka Event Source"){
+
+
+
+   <h1>New Message: </h1>
+   <h1 id="eventMessage"></h1>
+   
+   <script type="text/javascript" charset="utf-8">
+   if (!!window.EventSource) {
+       var kafkaSource = new EventSource("@routes.ScalaEventSourceController.eventMessage()");
+       kafkaSource.addEventListener('message', function(e) {
+          $('#eventMessage').html(e.data)
+       });
+     } else {
+       $("#eventMessage").html("Sorry. This browser doesn't seem to support Server sent event."); 
+     }     
+   </script>
+}

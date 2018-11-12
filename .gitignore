@@ -7,3 +7,8 @@ target
 /.settings
 /RUNNING_PID
 app/.DS_Store
+/bin/
+.DS_Store
+.cache-main
+.cache-tests
+

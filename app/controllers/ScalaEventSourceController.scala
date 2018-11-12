@@ -10,10 +10,10 @@ import play.api.mvc._
 class ScalaEventSourceController @Inject()(cc: ControllerComponents) extends AbstractController(cc) with KafkaSource {
 
   def index() = Action {
-    Ok(views.html.teamnames())
+    Ok(views.html.eventMessage())
   }
 
-  def teamMemberNames() = Action {
+  def eventMessage() = Action {
     Ok.chunked(kafkaSource.via(EventSource.flow)).as(ContentTypes.EVENT_STREAM)
   }
 }
